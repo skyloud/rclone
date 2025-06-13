@@ -2,11 +2,12 @@
 
 set -e
 
-RCLONE_CONFIG="${RCLONE_CONFIG:-'/data/rclone.conf'}"
-RCLONE_ARGS="${RCLONE_ARGS:-'--checksum'}"
-RCLONE_SOURCE="${RCLONE_SOURCE:-'source'}"
-RCLONE_DESTINATION="${RCLONE_DESTINATION:-'destination'}"
-HEARTBEAT_URL="${HEARTBEAT_URL:-''}"
+# Avoid argument escape with Scaleway serverless jobs
+RCLONE_CONFIG="$(eval echo ${RCLONE_CONFIG:-'/data/rclone.conf'})"
+RCLONE_ARGS="$(eval echo ${RCLONE_ARGS:-'--checksum'})"
+RCLONE_SOURCE="$(eval echo ${RCLONE_SOURCE:-'source'})"
+RCLONE_DESTINATION="$(eval echo ${RCLONE_DESTINATION:-'destination'})"
+HEARTBEAT_URL="$(eval echo ${HEARTBEAT_URL:-''})"
 
 if [ "$#" -gt 1 ]; then
     echo "Error: Too many arguments. Only one argument is allowed."
@@ -19,7 +20,7 @@ if [ ! -f "$RCLONE_CONFIG" ]; then
     RCLONE_CONFIG="/config/rclone/rclone.conf"
 fi
 
-rclone "$1" --config="$RCLONE_CONFIG" $RCLONE_ARGS "$RCLONE_SOURCE" "$RCLONE_DESTINATION"
+rclone $@ --config="$RCLONE_CONFIG" $RCLONE_ARGS "$RCLONE_SOURCE" "$RCLONE_DESTINATION"
 
 if [ -z "$HEARTBEAT_URL" ]; then
     echo "HEARTBEAT_URL is empty"
