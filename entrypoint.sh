@@ -14,6 +14,7 @@ if [ "$#" -gt 1 ]; then
 fi
 
 if [ ! -f "$RCLONE_CONFIG" ]; then
+    mkdir -p /config/rclone/
     echo "$RCLONE_CONFIG" | base64 -d > /config/rclone/rclone.conf
     RCLONE_CONFIG="/config/rclone/rclone.conf"
 fi
