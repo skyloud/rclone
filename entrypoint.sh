@@ -2,7 +2,7 @@
 
 set -e
 
-rclone "$@"
+rclone $@
 
 if [ -z "$HEARTBEAT_URL" ]; then
     echo "HEARTBEAT_URL is empty"
