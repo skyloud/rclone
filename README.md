@@ -22,7 +22,7 @@ docker run --rm -it -v $(pwd)/rclone.conf:/data/rclone.conf:ro \
 
 | Variable             | Description                               |
 |----------------------|-------------------------------------------|
-| `RCLONE_CONFIG`      | Path to rclone config file                |
+| `RCLONE_CONFIG`      | Path to rclone config file or base64      |
 | `RCLONE_SOURCE`      | Source location for rclone operation      |
 | `RCLONE_DESTINATION` | Destination location for rclone operation |
 | `RCLONE_ARGS`        | Additional arguments for rclone           |
